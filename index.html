@@ -83,7 +83,9 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
-
+        .user-center-btn i {
+            margin-right: 5px;
+        }
         
         .user-center-btn:hover {
             transform: translateY(-2px);
@@ -367,6 +369,12 @@
             .action-button {
                 width: 100%;
                 font-size: 1rem;
+            }
+            
+            /* 手机访问时标题左对齐 */
+            .header {
+                justify-content: flex-start;
+                padding-left: 20px;
             }
         }
         
@@ -711,7 +719,7 @@
         <h1>MSFXP 服务器</h1>
         <div class="header-right">
             <button class="user-center-btn" onclick="connectToServer()">
-                <i class="fas fa-user-circle"></i>
+                <i class="fas fa-user-circle"></i>个人中心
             </button>
         </div>
     </div>
