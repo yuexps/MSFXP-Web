@@ -50,17 +50,48 @@
         
         .header {
             width: 100%;
-            padding: 20px;
+            padding: 20px 0;
+            text-align: center;
             background-color: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
+        
+        .header-right {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .user-center-btn {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .user-center-btn i {
+            margin-right: 5px;
+        }
+        
+        .user-center-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
         h1 {
             font-size: 2.5rem;
             margin: 0;
@@ -69,67 +100,33 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: fit-content; /* 使标题宽度适应内容 */
-        }
-
-        .user-center-button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            z-index: 1000;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
         }
         
-        .content-container {
+        .container {
             width: 90%;
-            max-width: 1200px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
             margin: 40px 0;
-            padding: 0;
-        }
-        
-        .left-container {
-            width: 48%;
-            min-width: 300px;
-            background: rgba(255, 255, 255, 0.03);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 0 1%;
             border: 1px solid rgba(255, 255, 255, 0.15);
             position: relative;
             z-index: 1;
-        }
-        
-        .right-container {
-            width: 48%;
-            min-width: 300px;
-            background: rgba(255, 255, 255, 0.03);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 0 1%;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            position: relative;
-            z-index: 1;
+            overflow: hidden;
         }
         
         /* 为不支持backdrop-filter的浏览器提供备选样式 */
         @supports not (backdrop-filter: blur(10px)) {
-            .left-container, .right-container {
+            .container {
                 background: rgba(12, 38, 70, 0.7);
             }
+        }
+        
+        .container::before {
+            display: none;
         }
         
         h2 {
@@ -157,16 +154,20 @@
         }
         
         .server-status {
-            margin: 30px 0;
+            margin: 10px 0;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             position: relative;
             background: rgba(0, 0, 0, 0.2);
-            padding: 20px;
+            padding: 15px;
             flex-direction: column;
+            flex: 1;
+            height: auto;
+            min-height: 200px;
+            max-height: 500px;
         }
         
         .server-status::before {
@@ -180,25 +181,28 @@
             z-index: 1;
         }
         
-        .motd-container {
-            width: 100%;
-            max-width: 100%;
-            min-height: 265px;
-            border: none;
+        .status-card .motd-container {
+            min-height: unset;
+            height: auto;
             display: flex;
             flex-direction: column;
-            color: white;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+        
+        .status-card h2 {
+            margin-bottom: 10px;
         }
         
         .motd-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .motd-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             margin: 0;
             color: var(--accent-color);
@@ -206,25 +210,25 @@
         
         .motd-address {
             font-size: 1rem;
-            margin: 5px 0 15px 0;
+            margin: 3px 0 10px 0;
             color: rgba(255, 255, 255, 0.7);
         }
         
         .motd-version {
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         
         .motd-button {
             background: linear-gradient(to right, var(--primary-color), var(--accent-color));
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 8px 12px;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
-            font-size: 1rem;
+            margin-top: 5px;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
         }
         
@@ -233,16 +237,23 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
+        .server-selectors {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+        }
+        
         .motd-info-grid {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
+            margin-top: 10px;
         }
         
         .motd-info-item {
             background: rgba(255, 255, 255, 0.1);
-            padding: 12px 15px;
+            padding: 8px 12px;
             border-radius: 5px;
             display: flex;
             align-items: center;
@@ -258,6 +269,16 @@
             color: var(--accent-color);
             width: 20px;
             text-align: center;
+        }
+        
+        .motd-container {
+            width: 100%;
+            max-width: 100%;
+            min-height: auto;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            color: white;
         }
         
         .motd-loading {
@@ -364,15 +385,6 @@
                 font-size: 2rem;
             }
             
-            .content-container {
-                flex-direction: column;
-            }
-            
-            .left-container, .right-container {
-                width: 100%;
-                margin: 10px 0;
-            }
-            
             .container {
                 width: 95%;
                 padding: 20px;
@@ -381,6 +393,12 @@
             .action-button {
                 width: 100%;
                 font-size: 1rem;
+            }
+            
+            /* 手机访问时标题左对齐 */
+            .header {
+                justify-content: flex-start;
+                padding-left: 20px;
             }
         }
         
@@ -530,27 +548,6 @@
             font-size: 0.8em;
             padding: 3px 8px;
             border-radius: 20px;
-        }
-        
-        .ipv6-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #8e44ad;
-            color: white;
-            font-size: 0.8em;
-            padding: 3px 8px;
-            border-radius: 20px;
-        }
-        
-        .ipv6-notice {
-            margin-top: 8px;
-            color: #f39c12;
-            font-size: 0.85em;
-        }
-        
-        .server-option.ipv6 {
-            border-color: rgba(142, 68, 173, 0.3);
         }
         
         .server-option.offline {
@@ -718,52 +715,355 @@
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.9em;
         }
-        .top-right-button {
+        
+        .server-gallery {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .server-gallery h3 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            text-align: left;
+        }
+        
+        .server-gallery h3::after {
+            content: '';
             position: absolute;
-            width: auto;
-            margin-left: 15px;
-            right: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gallery-slides {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-controls {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 2;
+        }
+        
+        .gallery-nav {
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
-            border: none;
-            border-radius: 50px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .gallery-nav:hover {
+            background-color: rgba(var(--primary-color-rgb), 0.7);
+            transform: scale(1.1);
+        }
+        
+        .gallery-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+        }
+        
+        .gallery-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
             transition: all 0.3s ease;
         }
+        
+        .gallery-dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-container {
+                height: 220px;
+            }
+        }
 
-        .top-right-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        /* 移动设备横屏时 */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .gallery-container {
+                height: 180px;
+            }
+        }
+        
+        /* 灯箱效果 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-direction: column;
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .close-lightbox:hover {
+            color: var(--accent-color);
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease;
+        }
+        
+        .lightbox-controls {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .lightbox-nav {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .lightbox-nav:hover {
+            background-color: rgba(var(--primary-color-rgb), 0.7);
+            transform: scale(1.1);
+        }
+        
+        .lightbox-prev {
+            margin-right: auto;
+        }
+        
+        .lightbox-next {
+            margin-left: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .lightbox-nav {
+                height: 40px;
+                width: 40px;
+                font-size: 16px;
+            }
+        }
+        
+        /* 新的卡片布局样式 */
+        .cards-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            flex: 1 1 400px;
+            min-width: 0;
+        }
+        
+        /* 为不支持backdrop-filter的浏览器提供备选样式 */
+        @supports not (backdrop-filter: blur(10px)) {
+            .card {
+                background: rgba(12, 38, 70, 0.7);
+            }
+        }
+        
+        .intro-card {
+            flex: 1 1 500px;
+        }
+        
+        .status-card {
+            flex: 1 1 350px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .motd-info-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .motd-info-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        @media (max-width: 900px) {
+            .cards-container {
+                flex-direction: column;
+            }
+            
+            .card {
+                flex: 1 1 auto;
+                width: 100%;
+            }
+            
+            .status-card {
+                margin-top: 0;
+            }
+            
+            .server-status {
+                height: auto;
+                min-height: 200px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>MSFXP 服务器</h1>
-        <button class="top-right-button" onclick="connectToServer()">
-            <i class="fas fa-user-circle"></i>  个人中心
-        </button>
+        <div class="header-right">
+            <button class="user-center-btn" onclick="connectToServer()">
+                <i class="fas fa-user-circle"></i>个人中心
+            </button>
+        </div>
     </div>
-
-    <div class="content-container">
-        <div class="left-container">
+    
+    <div class="cards-container">
+        <div class="card intro-card">
             <h2>嘿！这里是MSFXP</h2>
             <p>
                 在这里，你将进入一个充满挑战与创意的生存世界！<br>
                 我们拥有丰富多样的玩法，包括：<br>
-                 • 怪物强化，战斗更刺激！<br>
-                 • 装备强化，打造独一无二的神装！<br>
-                 • 枪械系统，远程火力碾压敌人！<br>
-                 • 妖精女仆，可爱又实用的贴身帮手！<br>
-                 • 更有“生电大佬”（划掉）带你玩转科技！<br>
+                 • 怪物强化，战斗更刺激！<br>
+                 • 装备强化，打造独一无二的神装！<br>
+                 • 枪械系统，远程火力碾压敌人！<br>
+                 • 妖精女仆，可爱又实用的贴身帮手！<br>
+                 • 更有“生电大佬”（划掉）带你玩转科技！<br>
                 无论你是建筑党、生电党、还是战斗党，这里都能找到属于你的乐趣！<br>
                 快来和一群志同道合的小伙伴一起开启全新的冒险吧！
-                <img src="./images/miku.png" alt="Miku" width="300" height="130">
             </p>
-
+            
+            <div class="server-gallery">
+                <h3>服务器风光</h3>
+                <div class="gallery-container">
+                    <div class="gallery-slides" id="gallerySlides">
+                        <div class="gallery-item" data-index="0">
+                            <img src="./images/server/1.png" alt="服务器场景1">
+                        </div>
+                        <div class="gallery-item" data-index="1">
+                            <img src="./images/server/2.png" alt="服务器场景2">
+                        </div>
+                        <div class="gallery-item" data-index="2">
+                            <img src="./images/server/3.png" alt="服务器场景3">
+                        </div>
+                        <div class="gallery-item" data-index="3">
+                            <img src="./images/server/4.png" alt="服务器场景4">
+                        </div>
+                        <div class="gallery-item" data-index="4">
+                            <img src="./images/server/5.png" alt="服务器场景5">
+                        </div>
+                        <div class="gallery-item" data-index="5">
+                            <img src="./images/server/6.png" alt="服务器场景6">
+                        </div>
+                    </div>
+                    <div class="gallery-controls">
+                        <button class="gallery-nav gallery-prev" onclick="slideGallery(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="gallery-nav gallery-next" onclick="slideGallery(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="gallery-dots" id="galleryDots">
+                        <!-- 轮播图指示点将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </div>
+            
             <div class="quick-actions">
                 <a href="javascript:void(0);" onclick="showDownloadOptions()" class="quick-action-button download-btn">
                     <i class="fas fa-download"></i>下载Minecraft 1.20.15
@@ -772,10 +1072,9 @@
                     <i class="fas fa-users"></i>加入QQ群
                 </a>
             </div>
-
         </div>
-
-        <div class="right-container">
+        
+        <div class="card status-card">
             <h2>服务器状态</h2>
             <div class="server-status">
                 <div id="motdContainer" class="motd-container">
@@ -785,14 +1084,24 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div style="margin-top: 5px; font-size: 0.8rem;">© 2019-2025 MSFXP</div>
+    </div>
 
+    <!-- 灯箱效果 -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" class="lightbox-content">
+        <div class="lightbox-controls">
+            <button onclick="changeImage(-1)" class="lightbox-nav lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="changeImage(1)" class="lightbox-nav lightbox-next"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 
-    <div class="footer">
-        <div style="margin-top: 5px; font-size: 0.8rem;">© 2025 Power By MSFXP </div>
-    </div>
-
+    <script src="activity.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const servers = [
@@ -811,39 +1120,42 @@
                     status: "unknown"
                 }
             ];
-
+            
+            // 初始化轮播图
+            initGallery();
+            
             // 使服务器数据全局可访问
             window.servers = servers;
-
+            
             let currentServerIndex = 0;
-
+            
             const motdContainer = document.getElementById('motdContainer');
-
+            
             motdContainer.innerHTML = `
                 <div class="motd-loading">
                     <i class="fas fa-spinner fa-spin"></i>
                     <div>正在连接服务器...</div>
                 </div>
             `;
-
+            
             // 同时获取所有服务器的状态
             fetchAllServersStatus();
-
+            
             // 设置定时刷新
             setInterval(fetchAllServersStatus, 60000);
-
+            
             // 同时获取所有服务器的状态
             function fetchAllServersStatus() {
                 // 重置服务器状态
                 servers.forEach(server => {
                     server.status = "unknown";
                 });
-
+                
                 // 获取全部服务器的状态
                 const fetchPromises = servers.map((server, index) => {
                     const serverAddress = `${server.ip}:${server.port}`;
                     const apiUrl = `https://motdbe.blackbe.work/api?host=${serverAddress}`;
-
+                    
                     return fetch(apiUrl)
                         .then(response => {
                             if (!response.ok) {
@@ -864,20 +1176,20 @@
                             return null;
                         });
                 });
-
+                
                 // 等待所有请求完成
                 Promise.all(fetchPromises).then(() => {
                     // 查找延迟最低的在线服务器
                     let lowestDelayIndex = -1;
                     let lowestDelay = 999999;
-
+                    
                     for (let i = 0; i < servers.length; i++) {
                         if (servers[i].status === "online" && servers[i].delay < lowestDelay) {
                             lowestDelay = servers[i].delay;
                             lowestDelayIndex = i;
                         }
                     }
-
+                    
                     // 如果找到在线服务器，显示延迟最低的
                     if (lowestDelayIndex >= 0) {
                         currentServerIndex = lowestDelayIndex;
@@ -888,11 +1200,11 @@
                     }
                 });
             }
-
+            
             window.switchServer = function(index) {
                 if (index >= 0 && index < servers.length) {
                     currentServerIndex = index;
-
+                    
                     if (servers[index].status === "online" && servers[index].data) {
                         // 如果已经有数据，直接显示
                         updateMotdDisplay(servers[index].data, servers[index], servers);
@@ -903,7 +1215,7 @@
                         // 如果状态未知，重新获取
                         const serverAddress = `${servers[index].ip}:${servers[index].port}`;
                         const apiUrl = `https://motdbe.blackbe.work/api?host=${serverAddress}`;
-
+                        
                         // 显示加载状态
                         motdContainer.innerHTML = `
                             <div class="motd-loading">
@@ -911,7 +1223,7 @@
                                 <div>正在连接服务器...</div>
                             </div>
                         `;
-
+                        
                         fetch(apiUrl)
                             .then(response => {
                                 if (!response.ok) {
@@ -935,22 +1247,22 @@
                 }
             };
         });
-
+        
         function updateMotdDisplay(data, currentServer, allServers) {
             const motdContainer = document.getElementById('motdContainer');
-
+            
             if (!data || data.status !== "online") {
                 displayOfflineStatus(currentServer);
                 return;
             }
-
+            
             let cleanMotd = data.motd || "MSFXP Survival";
             cleanMotd = cleanMotd.replace(/§[0-9a-fklmnor]/gi, '');
-
+            
             let serverSelectorsHtml = '';
             allServers.forEach((server, index) => {
                 if (server.isIpv6) return;
-
+                
                 const isActive = server.ip === currentServer.ip && server.port === currentServer.port;
                 const statusClass = server.status === "online" ? "online" : (server.status === "offline" ? "offline" : "");
                 serverSelectorsHtml += `
@@ -961,7 +1273,7 @@
                     </button>
                 `;
             });
-
+            
             motdContainer.innerHTML = `
                 <div class="motd-header">
                     <h2 class="motd-title"><span class="motd-status-indicator motd-online"></span>${cleanMotd}</h2>
@@ -996,7 +1308,7 @@
                 </div>
             `;
         }
-
+        
         function joinServer(serverIndex = 0) {
             // 使用页面上已加载的服务器数据
             const mainServers = document.querySelectorAll('[data-server-info]');
@@ -1014,31 +1326,16 @@
                     ip: "frp-gap.com",
                     port: "23236",
                     delay: 999
-                },
-                {
-                    name: "备用IP",
-                    server_name: "§b§lMSFXP",
-                    ip: "frp.msfxp.top",
-                    port: "19132",
-                    delay: 999
-                },
-                {
-                    name: "IPv6",
-                    server_name: "§b§lMSFXP",
-                    ip: "msfxp-ipv6.ucket.my",
-                    port: "19133",
-                    isIpv6: true,
-                    delay: 999
                 }
             ];
-
+            
             // 同步全局服务器状态中的延迟数据
             try {
                 const parentScope = window.parent || window;
                 if (parentScope.document) {
                     if (typeof parentScope.servers !== 'undefined') {
                         // 可以从上面的全局变量中获取服务器数据
-                        for (let i = 0; i < Math.min(3, parentScope.servers.length); i++) {
+                        for (let i = 0; i < Math.min(2, parentScope.servers.length); i++) {
                             if (parentScope.servers[i].status === 'online') {
                                 servers[i].delay = parentScope.servers[i].delay || 999;
                                 servers[i].status = 'online';
@@ -1069,12 +1366,12 @@
                     console.error('获取延迟数据失败', e);
                 }
             }
-
+            
             // 查找延迟最低的非IPv6服务器
             let lowestDelayIndex = 0;
             let lowestDelay = 999999;
             
-            for (let i = 0; i < 3; i++) { // 只考虑前3个非IPv6服务器
+            for (let i = 0; i < 2; i++) { // 只考虑前2个非IPv6服务器
                 if (servers[i].status !== 'offline' && servers[i].delay < lowestDelay) {
                     lowestDelay = servers[i].delay;
                     lowestDelayIndex = i;
@@ -1098,8 +1395,6 @@
                             <div class="server-options">`;
             
             servers.forEach((server, idx) => {
-                const ipv6Badge = server.isIpv6 ? '<div class="ipv6-badge">IPv6</div>' : '';
-                const ipv6Notice = server.isIpv6 ? '<div class="ipv6-notice"><i class="fas fa-info-circle"></i> 需要网络支持IPv6才能连接</div>' : '';
                 const isRecommended = idx === lowestDelayIndex && !server.isIpv6;
                 const delayInfo = server.delay < 999 ? `<div class="server-option-delay">延迟: ${server.delay} ms</div>` : '';
                 const statusBadge = server.status === 'offline' ? 
@@ -1107,15 +1402,13 @@
                     (server.delay < 999 ? '<div class="server-option-status online">在线</div>' : '');
                 
                 dialogHTML += `
-                    <div class="server-option ${isRecommended ? 'recommended' : ''} ${server.isIpv6 ? 'ipv6' : ''} ${server.status === 'offline' ? 'offline' : ''}" 
+                    <div class="server-option ${isRecommended ? 'recommended' : ''} ${server.status === 'offline' ? 'offline' : ''}" 
                          onclick="connectToMinecraft('${server.server_name}', '${server.ip}', '${server.port}')">
                         <div class="server-option-name">${server.name} ${isRecommended ? '(推荐)' : ''}</div>
                         <div class="server-option-address">${server.ip}:${server.port}</div>
                         ${statusBadge}
                         ${delayInfo}
                         ${isRecommended ? '<div class="recommended-badge">延迟最低</div>' : ''}
-                        ${ipv6Badge}
-                        ${ipv6Notice}
                     </div>
                 `;
             });
@@ -1160,7 +1453,7 @@
                 }, 1000);
             };
         }
-
+        
         function displayOfflineStatus(server) {
             const motdContainer = document.getElementById('motdContainer');
             const serverAddress = server ? `${server.ip}:${server.port}` : "msfxp.ucket.my:19125";
@@ -1174,22 +1467,21 @@
                 <div class="server-selectors">
                     <button class="server-selector" onclick="switchServer(0)">主要IP</button>
                     <button class="server-selector" onclick="switchServer(1)">备用IP</button>
-                    <button class="server-selector" onclick="switchServer(2)">备用IP</button>
                 </div>
                 <button class="motd-button" onclick="location.reload()">刷新状态</button>
             `;
         }
-
+        
         function connectToServer() {
             const personalCenterUrl = "https://msfxp-map.ucket.top";
             window.open(personalCenterUrl, "_blank");
         }
-
+        
         function showDownloadOptions() {
             const downloadLinks = {
-                android: "http://frp.msfxp.top/Minecraft/%5BAndroid%5D%20Minecraft_1.20.15.01.APK",
-                ios: "http://frp.msfxp.top/Minecraft/%5BiOS%5D%20Minecraft_1.20.13.ipa",
-                windows: "http://frp.msfxp.top/Minecraft/%5BWindows%5D%20MinecraftUWP_1.20.15.Appx"
+                android: "http://pan.msfxp.top/Minecraft/%5BAndroid%5D%20Minecraft_1.20.15.01.APK",
+                ios: "http://pan.msfxp.top/Minecraft/%5BiOS%5D%20Minecraft_1.20.13.ipa",
+                windows: "http://pan.msfxp.top/Minecraft/%5BWindows%5D%20MinecraftUWP_1.20.15.Appx"
             };
             
             // 自动检测设备类型
@@ -1299,6 +1591,81 @@
             }
             
             return deviceInfo;
+        }
+        
+        // 灯箱效果
+        function openLightbox(index) {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            if (index >= 0 && index < galleryItems.length) {
+                const img = galleryItems[index].querySelector('img');
+                if (img) {
+                    lightbox.style.display = 'flex';
+                    lightboxImg.src = img.src;
+                }
+            }
+        }
+        
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+        }
+        
+        function changeImage(direction) {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const currentIndex = Array.from(galleryItems).findIndex(item => item.querySelector('img').src === document.getElementById('lightbox-img').src);
+            const newIndex = (currentIndex + direction + galleryItems.length) % galleryItems.length;
+            openLightbox(newIndex);
+        }
+        
+        // 轮播图功能
+        let currentSlide = 0;
+        const totalSlides = document.querySelectorAll('.gallery-item').length;
+        
+        function initGallery() {
+            // 生成指示点
+            const dotsContainer = document.getElementById('galleryDots');
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = function() { goToSlide(i); };
+                dotsContainer.appendChild(dot);
+            }
+            
+            // 为每个幻灯片项添加点击事件，打开灯箱
+            const slides = document.querySelectorAll('.gallery-item');
+            slides.forEach((slide, index) => {
+                slide.onclick = function() { openLightbox(index); };
+            });
+            
+            // 设置自动轮播
+            setInterval(function() {
+                slideGallery(1);
+            }, 5000);
+        }
+        
+        function slideGallery(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateGallery();
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            updateGallery();
+        }
+        
+        function updateGallery() {
+            // 更新轮播位置
+            const slidesContainer = document.getElementById('gallerySlides');
+            slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // 更新指示点
+            const dots = document.querySelectorAll('.gallery-dot');
+            dots.forEach((dot, index) => {
+                dot.className = 'gallery-dot' + (index === currentSlide ? ' active' : '');
+            });
         }
     </script>
 </body>
