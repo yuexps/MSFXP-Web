@@ -3,4 +3,6 @@
 
 Cloudflare Pages ： https://mc.msfxp.top/
 
-Github Pages ：https://msfxp-web.msfxp.top/
+Vercel Pages ： https://mc-v.msfxp.top/
+
+Github Pages ：https://mc-g.msfxp.top/
