@@ -1255,6 +1255,10 @@ body.dialog-open {
 }
 
 /* 加载动画样式 */
+body.loading {
+    overflow: hidden !important;
+}
+
 #loading-screen {
     position: fixed;
     top: 0;
