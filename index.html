@@ -1410,6 +1410,33 @@
             animation: text-sweep-glow 1.5s infinite;
             animation-delay: 0.6s;
         }
+        
+        .server-note {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .server-note i {
+            margin-right: 8px;
+        }
+        
+        .server-option-note {
+            color: #e74c3c;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .server-option-note i {
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
@@ -1537,18 +1564,26 @@
             
             const servers = [
                 {
-                    name: "主要IP",
-                    ip: "msfxp.ucket.my",
+                    name: "北方节点",
+                    ip: "s1.msfxp.top",
                     port: "19125",
                     delay: 999,
                     status: "unknown"
                 },
                 {
-                    name: "备用IP",
-                    ip: "survival.msfxp.top",
-                    port: "23236",
+                    name: "南方节点",
+                    ip: "s2.msfxp.top",
+                    port: "19126",
                     delay: 999,
                     status: "unknown"
+                },
+                {
+                    name: "日本节点",
+                    ip: "s3.msfxp.top",
+                    port: "19127",
+                    delay: 999,
+                    status: "unknown",
+                    note: "国内玩家不能访问"
                 }
             ];
             
@@ -1719,6 +1754,7 @@
                 
                 <div class="motd-address">${data.host}</div>
                 <div class="motd-version">MCBE: ${data.version || "1.20.15"} | Protocol: ${data.agreement || "未知"}</div>
+                ${currentServer.note ? `<div class="server-note"><i class="fas fa-exclamation-triangle"></i> ${currentServer.note}</div>` : ''}
                 
                 <button class="motd-button" onclick="joinServer(${allServers.indexOf(currentServer)})">加入服务器</button>
                 
@@ -1748,18 +1784,26 @@
             const mainServers = document.querySelectorAll('[data-server-info]');
             const servers = [
                 {
-                    name: "主要IP",
-                    server_name: "§b§lMSFXP",
-                    ip: "msfxp.ucket.my",
+                    name: "北方节点",
+                    server_name: "§b§lMSFXP-北方",
+                    ip: "s1.msfxp.top",
                     port: "19125",
                     delay: 999
                 },
                 {
-                    name: "备用IP",
-                    server_name: "§b§lMSFXP",
-                    ip: "survival.msfxp.top",
-                    port: "23236",
+                    name: "南方节点",
+                    server_name: "§b§lMSFXP-南方",
+                    ip: "s2.msfxp.top",
+                    port: "19126",
                     delay: 999
+                },
+                {
+                    name: "日本节点",
+                    server_name: "§b§lMSFXP-日本",
+                    ip: "s3.msfxp.top",
+                    port: "19127",
+                    delay: 999,
+                    note: "国内玩家不能访问"
                 }
             ];
             
@@ -1769,7 +1813,7 @@
                 if (parentScope.document) {
                     if (typeof parentScope.servers !== 'undefined') {
                         // 可以从上面的全局变量中获取服务器数据
-                        for (let i = 0; i < Math.min(2, parentScope.servers.length); i++) {
+                        for (let i = 0; i < Math.min(3, parentScope.servers.length); i++) {
                             if (parentScope.servers[i].status === 'online') {
                                 servers[i].delay = parentScope.servers[i].delay || 999;
                                 servers[i].status = 'online';
@@ -1805,7 +1849,7 @@
             let lowestDelayIndex = 0;
             let lowestDelay = 999999;
             
-            for (let i = 0; i < 2; i++) { // 只考虑前2个非IPv6服务器
+            for (let i = 0; i < 3; i++) { // 考虑所有三个服务器节点
                 if (servers[i].status !== 'offline' && servers[i].delay < lowestDelay) {
                     lowestDelay = servers[i].delay;
                     lowestDelayIndex = i;
@@ -1842,6 +1886,7 @@
                         <div class="server-option-address">${server.ip}:${server.port}</div>
                         ${statusBadge}
                         ${delayInfo}
+                        ${server.note ? `<div class="server-option-note"><i class="fas fa-exclamation-triangle"></i> ${server.note}</div>` : ''}
                         ${isRecommended ? '<div class="recommended-badge">延迟最低</div>' : ''}
                     </div>
                 `;
@@ -1890,7 +1935,7 @@
         
         function displayOfflineStatus(server) {
             const motdContainer = document.getElementById('motdContainer');
-            const serverAddress = server ? `${server.ip}:${server.port}` : "msfxp.ucket.my:19125";
+            const serverAddress = server ? `${server.ip}:${server.port}` : "s1.msfxp.top:19125";
             
             motdContainer.innerHTML = `
                 <div class="motd-header">
@@ -1899,8 +1944,9 @@
                 <div class="motd-address">${serverAddress}</div>
                 <div class="motd-error">服务器当前无法连接，请稍后再试或切换其他服务器ip</div>
                 <div class="server-selectors">
-                    <button class="server-selector" onclick="switchServer(0)">主要IP</button>
-                    <button class="server-selector" onclick="switchServer(1)">备用IP</button>
+                    <button class="server-selector" onclick="switchServer(0)">北方节点</button>
+                    <button class="server-selector" onclick="switchServer(1)">南方节点</button>
+                    <button class="server-selector" onclick="switchServer(2)">日本节点</button>
                 </div>
                 <button class="motd-button" onclick="location.reload()">刷新状态</button>
             `;
