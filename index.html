@@ -1263,9 +1263,168 @@
             text-decoration: underline;
         }
 
+        /* 加载动画样式 */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-bg);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+        }
+        
+        #loading-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loading-container {
+            text-align: center;
+        }
+        
+        .loading-text {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .loading-letter {
+            font-size: 5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 10px;
+            position: relative;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+        
+        .loading-letter.glow {
+            color: #2196F3;
+            background: none;
+            -webkit-text-fill-color: #2196F3;
+            text-shadow: 
+                0 0 20px rgba(33, 150, 243, 0.8),
+                0 0 40px rgba(33, 150, 243, 0.6),
+                0 0 60px rgba(33, 150, 243, 0.4),
+                0 0 80px rgba(33, 150, 243, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .loading-text {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* 文字发光扫过效果 */
+        @keyframes text-sweep-glow {
+            0%, 100% {
+                background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: none;
+                transform: scale(1);
+            }
+            50% {
+                background: none;
+                -webkit-text-fill-color: #2196F3;
+                color: #2196F3;
+                text-shadow: 
+                    0 0 20px rgba(33, 150, 243, 0.8),
+                    0 0 40px rgba(33, 150, 243, 0.6),
+                    0 0 60px rgba(33, 150, 243, 0.4),
+                    0 0 80px rgba(33, 150, 243, 0.2);
+                transform: scale(1.1);
+            }
+        }
+        
+        @keyframes final-glow {
+            0% {
+                background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: none;
+                transform: scale(1);
+                opacity: 1;
+            }
+            70% {
+                background: none;
+                -webkit-text-fill-color: #2196F3;
+                color: #2196F3;
+                text-shadow: 
+                    0 0 20px rgba(33, 150, 243, 0.8),
+                    0 0 40px rgba(33, 150, 243, 0.6),
+                    0 0 60px rgba(33, 150, 243, 0.4),
+                    0 0 80px rgba(33, 150, 243, 0.2);
+                transform: scale(1.5);
+                opacity: 1;
+            }
+            100% {
+                background: none;
+                -webkit-text-fill-color: #2196F3;
+                color: #2196F3;
+                text-shadow: 
+                    0 0 30px rgba(33, 150, 243, 0.9),
+                    0 0 60px rgba(33, 150, 243, 0.7),
+                    0 0 90px rgba(33, 150, 243, 0.5),
+                    0 0 120px rgba(33, 150, 243, 0.3);
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        /* 为每个字母设置不同的动画延迟，以实现扫过效果 */
+        .loading-letter:nth-child(1) {
+            animation: text-sweep-glow 1.5s infinite;
+            animation-delay: 0s;
+        }
+        
+        .loading-letter:nth-child(2) {
+            animation: text-sweep-glow 1.5s infinite;
+            animation-delay: 0.15s;
+        }
+        
+        .loading-letter:nth-child(3) {
+            animation: text-sweep-glow 1.5s infinite;
+            animation-delay: 0.3s;
+        }
+        
+        .loading-letter:nth-child(4) {
+            animation: text-sweep-glow 1.5s infinite;
+            animation-delay: 0.45s;
+        }
+        
+        .loading-letter:nth-child(5) {
+            animation: text-sweep-glow 1.5s infinite;
+            animation-delay: 0.6s;
+        }
     </style>
 </head>
 <body>
+    <div id="loading-screen">
+        <div class="loading-container">
+            <div class="loading-text">
+                <span class="loading-letter">M</span>
+                <span class="loading-letter">S</span>
+                <span class="loading-letter">F</span>
+                <span class="loading-letter">X</span>
+                <span class="loading-letter">P</span>
+            </div>
+        </div>
+    </div>
+    
     <div class="header">
         <h1>MSFXP 服务器</h1>
         <div class="header-right">
@@ -1367,6 +1526,15 @@
     <script src="activity.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // 初始化加载动画
+            initLoadingAnimation();
+            
+            // 监听页面加载完成事件
+            window.addEventListener('load', function() {
+                // 页面资源加载完成后显示最终动画
+                finishLoadingAnimation();
+            });
+            
             const servers = [
                 {
                     name: "主要IP",
@@ -2085,11 +2253,58 @@
             const slidesContainer = document.getElementById('gallerySlides');
             slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
             
-            // 更新指示点
+            // 更新指示点状态
             const dots = document.querySelectorAll('.gallery-dot');
             dots.forEach((dot, index) => {
-                dot.className = 'gallery-dot' + (index === currentSlide ? ' active' : '');
+                dot.classList.toggle('active', index === currentSlide);
             });
+        }
+        
+        // 加载动画相关函数
+        function initLoadingAnimation() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingLetters = document.querySelectorAll('.loading-letter');
+            
+            // 光效自动通过CSS animation实现
+            // 不需要JavaScript控制单个字母的发光
+            
+            // 可以添加字母鼠标悬停发光效果(可选)
+            loadingLetters.forEach(letter => {
+                letter.addEventListener('mouseover', function() {
+                    this.classList.add('glow');
+                });
+                
+                letter.addEventListener('mouseout', function() {
+                    this.classList.remove('glow');
+                });
+            });
+        }
+        
+        function finishLoadingAnimation() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingLetters = document.querySelectorAll('.loading-letter');
+            
+            // 清除所有正在进行的动画
+            loadingLetters.forEach(letter => {
+                // 停止当前的扫光动画
+                letter.style.animation = 'none';
+                // 移除可能存在的glow类
+                letter.classList.remove('glow');
+            });
+            
+            // 短暂延迟后显示最终动画，确保先清除其他动画
+            setTimeout(() => {
+                // 所有字母同时发光
+                loadingLetters.forEach(letter => {
+                    // 添加最终发光动画
+                    letter.style.animation = 'final-glow 1s forwards';
+                });
+                
+                // 同时淡出整个加载屏幕，与字母发光消失同步
+                setTimeout(() => {
+                    loadingScreen.classList.add('fade-out');
+                }, 700); // 在动画70%处开始淡出加载屏幕
+            }, 50);
         }
     </script>
 </body>
