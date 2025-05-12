@@ -540,14 +540,19 @@
         }
         
         .recommended-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
             color: white;
-            font-size: 0.8em;
-            padding: 3px 8px;
+            padding: 5px 10px;
             border-radius: 20px;
+            font-size: 0.8em;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1;
         }
         
         .server-option.offline {
@@ -637,6 +642,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            overflow: hidden;
         }
         
         .download-dialog-content {
@@ -644,9 +650,12 @@
             border-radius: 10px;
             width: 90%;
             max-width: 500px;
+            max-height: 90vh;
             box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         
         .download-dialog-header {
@@ -655,6 +664,7 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
         }
         
         .download-dialog-header h3 {
@@ -665,55 +675,219 @@
         .download-dialog-body {
             padding: 20px;
             color: white;
+            overflow-y: auto;
+            flex-grow: 1;
+            max-height: calc(90vh - 60px); /* 减去header的高度 */
+            -webkit-overflow-scrolling: touch; /* 提高移动设备上的滚动体验 */
         }
         
         .download-options {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 20px;
         }
         
-        .download-option {
-            padding: 15px;
-            border-radius: 8px;
+        .download-intro {
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+        }
+        
+        .download-links-section {
             background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .platform-selector {
+            display: flex;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .platform-btn {
+            background: none;
+            border: none;
+            color: white;
+            padding: 12px 20px;
             cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            flex: 1;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
             display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
         
-        .download-option:hover {
+        .platform-btn:last-child {
+            border-right: none;
+        }
+        
+        .platform-btn i {
+            font-size: 1.2em;
+        }
+        
+        .platform-btn:hover {
             background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
         }
         
-        .download-option.recommended {
-            background-color: rgba(var(--primary-color-rgb), 0.15);
-            border-color: rgba(var(--primary-color-rgb), 0.3);
+        .platform-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            font-weight: 500;
         }
         
-        .download-option-icon {
-            font-size: 24px;
-            margin-right: 15px;
+        .download-platform-info {
+            margin-bottom: 20px;
+        }
+        
+        .platform-info-card {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.3s ease;
+            position: relative;
+        }
+        
+        .platform-info-card.active {
+            display: block;
+        }
+        
+        .platform-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .platform-icon-large {
+            font-size: 35px;
             color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.1);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
         }
         
-        .download-option-info {
-            flex-grow: 1;
-        }
-        
-        .download-option-name {
+        .platform-name {
             font-weight: bold;
+            font-size: 1.2em;
             margin-bottom: 5px;
         }
         
-        .download-option-desc {
+        .platform-version {
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.9em;
+        }
+        
+        .platform-desc {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+        
+        .download-links-container {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            text-align: center;
+            font-size: 1.1em;
+        }
+        
+        .download-links {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .download-links.active {
+            display: flex;
+        }
+        
+        .download-link {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .download-link:hover {
+            background-color: rgba(var(--primary-color-rgb), 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: rgba(var(--primary-color-rgb), 0.3);
+        }
+        
+        .download-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 0.9em;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 480px) {
+            .platform-title {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .recommended-badge {
+                margin: 0;
+                top: -10px;
+                right: -5px;
+            }
+            
+            .platform-btn {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+            
+            .platform-btn i {
+                margin-right: 0;
+            }
+            
+            .platform-btn span {
+                display: none;
+            }
         }
         
         .server-gallery {
@@ -1000,6 +1174,95 @@
                 min-height: 200px;
             }
         }
+        
+        .mac-notice {
+            background-color: rgba(13, 36, 54, 0.7);
+            border: 1px solid #ffb700;
+            color: #ffb700;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .mac-notice i {
+            font-size: 1.5em;
+            color: #ffb700;
+            flex-shrink: 0;
+            background: rgba(255, 183, 0, 0.2);
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .mac-notice .tool-link {
+            color: #a287e0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            display: inline-block;
+            padding: 0 5px;
+        }
+        
+        .mac-notice .tool-link:hover {
+            color: #b39ddb;
+            text-decoration: underline;
+        }
+        
+        /* 防止下载对话框滚动影响背景 */
+        body.dialog-open {
+            overflow: hidden;
+        }
+        
+        .platform-desc .mac-install-tip {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-left: 3px solid #3498db;
+            padding: 12px 15px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        .platform-desc .mac-install-tip i {
+            color: #3498db;
+            margin-right: 8px;
+        }
+        
+        .platform-desc .mac-install-tip strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .platform-desc .mac-install-tip .steps {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        
+        .platform-desc .mac-install-tip .step {
+            margin-bottom: 5px;
+        }
+        
+        .platform-desc .mac-install-tip .tool-link {
+            color: #a287e0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            display: inline-block;
+            padding: 0 2px;
+        }
+        
+        .platform-desc .mac-install-tip .tool-link:hover {
+            color: #b39ddb;
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
@@ -1022,7 +1285,7 @@
                  • 装备强化，打造独一无二的神装！<br>
                  • 枪械系统，远程火力碾压敌人！<br>
                  • 妖精女仆，可爱又实用的贴身帮手！<br>
-                 • 更有“生电大佬”（划掉）带你玩转科技！<br>
+                 • 更有"生电大佬"（划掉）带你玩转科技！<br>
                 无论你是建筑党、生电党、还是战斗党，这里都能找到属于你的乐趣！<br>
                 快来和一群志同道合的小伙伴一起开启全新的冒险吧！
             </p>
@@ -1126,6 +1389,9 @@
             
             // 使服务器数据全局可访问
             window.servers = servers;
+            
+            // 检测Mac设备，设置全局变量
+            window.isMacDevice = detectDevice().mac;
             
             let currentServerIndex = 0;
             
@@ -1479,9 +1745,21 @@
         
         function showDownloadOptions() {
             const downloadLinks = {
-                android: "https://github.akams.cn/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/Android.Minecraft_1.20.15.01.APK",
-                ios: "https://github.akams.cn/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/iOS.Minecraft_1.20.13.ipa",
-                windows: "https://github.akams.cn/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/Windows.MinecraftUWP_1.20.15.Appx"
+                android: [
+                    { name: "下载地址1", url: "https://github.akams.cn/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/Android.Minecraft_1.20.15.01.APK" },
+                    { name: "下载地址2", url: "https://tvv.tw/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/Android.Minecraft_1.20.15.01.APK" },
+                    { name: "下载地址3", url: "https://ghfast.top/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/Android.Minecraft_1.20.15.01.APK" }
+                ],
+                ios: [
+                    { name: "下载地址1", url: "https://github.akams.cn/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/iOS.Minecraft_1.20.13.ipa" },
+                    { name: "下载地址2", url: "https://tvv.tw/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/iOS.Minecraft_1.20.13.ipa" },
+                    { name: "下载地址3", url: "https://ghfast.top/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/iOS.Minecraft_1.20.13.ipa" }
+                ],
+                windows: [
+                    { name: "下载地址1", url: "https://github.akams.cn/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/Windows.MinecraftUWP_1.20.15.Appx" },
+                    { name: "下载地址2", url: "https://tvv.tw/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/Windows.MinecraftUWP_1.20.15.Appx" },
+                    { name: "下载地址3", url: "https://ghfast.top/https://github.com/yuexps/MSFXP-Web/releases/download/Minecraft/Windows.MinecraftUWP_1.20.15.Appx" }
+                ]
             };
             
             // 自动检测设备类型
@@ -1493,6 +1771,9 @@
                 recommendedPlatform = "ios";
             } else if (deviceInfo.windows) {
                 recommendedPlatform = "windows";
+            } else if (deviceInfo.mac) {
+                // Mac平台不推荐任何平台
+                recommendedPlatform = "none";
             }
             
             const dialogHTML = `
@@ -1503,31 +1784,102 @@
                             <span class="close-dialog" onclick="closeDownloadDialog()">&times;</span>
                         </div>
                         <div class="download-dialog-body">
-                            <p>请选择适合您设备的Minecraft版本：</p>
+                            <p class="download-intro">请选择适合您设备的Minecraft版本：</p>
+                            ${deviceInfo.mac ? '<div class="mac-notice"><i class="fas fa-info-circle"></i><div><span>检测到您正在使用Mac设备，目前暂无Mac版本，您可尝试使用</span> <a href="https://playcover.io" target="_blank" class="tool-link">PlayCover</a> <span>工具安装iOS版本的IPA安装包。</span></div></div>' : ''}
                             <div class="download-options">
-                                <div class="download-option ${recommendedPlatform === 'android' ? 'recommended' : ''}" onclick="downloadMinecraft('android')">
-                                    <div class="download-option-icon"><i class="fab fa-android"></i></div>
-                                    <div class="download-option-info">
-                                        <div class="download-option-name">Android版</div>
-                                        <div class="download-option-desc">Minecraft 1.20.15.01 APK</div>
+                                <div class="download-links-section">
+                                    <div class="platform-selector">
+                                        <button class="platform-btn ${!deviceInfo.mac && recommendedPlatform === 'android' ? 'active' : ''}" onclick="switchDownloadPlatform('android')">
+                                            <i class="fab fa-android"></i> Android
+                                        </button>
+                                        <button class="platform-btn ${deviceInfo.mac || recommendedPlatform === 'ios' ? 'active' : ''}" onclick="switchDownloadPlatform('ios')">
+                                            <i class="fab fa-apple"></i> iOS
+                                        </button>
+                                        <button class="platform-btn ${!deviceInfo.mac && recommendedPlatform === 'windows' ? 'active' : ''}" onclick="switchDownloadPlatform('windows')">
+                                            <i class="fab fa-windows"></i> Windows
+                                        </button>
                                     </div>
-                                    ${recommendedPlatform === 'android' ? '<div class="recommended-badge">推荐</div>' : ''}
-                                </div>
-                                <div class="download-option ${recommendedPlatform === 'ios' ? 'recommended' : ''}" onclick="downloadMinecraft('ios')">
-                                    <div class="download-option-icon"><i class="fab fa-apple"></i></div>
-                                    <div class="download-option-info">
-                                        <div class="download-option-name">iOS版</div>
-                                        <div class="download-option-desc">Minecraft 1.20.13 IPA (需自签名安装)</div>
+                                    
+                                    <div class="download-platform-info">
+                                        <div id="android-info" class="platform-info-card ${!deviceInfo.mac && recommendedPlatform === 'android' ? 'active' : ''}">
+                                            ${recommendedPlatform === 'android' ? '<div class="recommended-badge"><i class="fas fa-check-circle"></i> 推荐</div>' : ''}
+                                            <div class="platform-details">
+                                                <div class="platform-title">
+                                                    <div class="platform-icon-large"><i class="fab fa-android"></i></div>
+                                                    <div>
+                                                        <div class="platform-name">Android版</div>
+                                                        <div class="platform-version">Minecraft 1.20.15.01 APK</div>
+                                                    </div>
+                                                </div>
+                                                <div class="platform-desc">
+                                                    <p>适用于所有Android设备，安装后可直接运行。请确保您的设备已开启"安装未知来源应用"选项。</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="ios-info" class="platform-info-card ${deviceInfo.mac || recommendedPlatform === 'ios' ? 'active' : ''}">
+                                            ${recommendedPlatform === 'ios' ? '<div class="recommended-badge"><i class="fas fa-check-circle"></i> 推荐</div>' : ''}
+                                            <div class="platform-details">
+                                                <div class="platform-title">
+                                                    <div class="platform-icon-large"><i class="fab fa-apple"></i></div>
+                                                    <div>
+                                                        <div class="platform-name">iOS版</div>
+                                                        <div class="platform-version">Minecraft 1.20.13 IPA</div>
+                                                    </div>
+                                                </div>
+                                                <div class="platform-desc">
+                                                    <p>适用于iPhone和iPad设备，需使用AltStore或其他工具签名安装。</p>
+                                                    ${deviceInfo.mac ? '<div class="mac-install-tip"><i class="fas fa-laptop-code"></i> <strong>Mac用户安装提示：</strong> <p>您可以使用<a href="https://playcover.io" target="_blank" class="tool-link">PlayCover</a>工具在Mac上直接运行iOS应用。</p><div class="steps"><div class="step">1. 下载并安装PlayCover</div><div class="step">2. 将下载的IPA文件拖入PlayCover</div><div class="step">3. 按照提示完成安装</div></div></div>' : ''}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="windows-info" class="platform-info-card ${!deviceInfo.mac && recommendedPlatform === 'windows' ? 'active' : ''}">
+                                            ${recommendedPlatform === 'windows' ? '<div class="recommended-badge"><i class="fas fa-check-circle"></i> 推荐</div>' : ''}
+                                            <div class="platform-details">
+                                                <div class="platform-title">
+                                                    <div class="platform-icon-large"><i class="fab fa-windows"></i></div>
+                                                    <div>
+                                                        <div class="platform-name">Windows版</div>
+                                                        <div class="platform-version">Minecraft 1.20.15 UWP应用包</div>
+                                                    </div>
+                                                </div>
+                                                <div class="platform-desc">
+                                                    <p>适用于Windows 10/11系统，需要右键点击安装包，选择"安装"选项完成安装。</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    ${recommendedPlatform === 'ios' ? '<div class="recommended-badge">推荐</div>' : ''}
-                                </div>
-                                <div class="download-option ${recommendedPlatform === 'windows' ? 'recommended' : ''}" onclick="downloadMinecraft('windows')">
-                                    <div class="download-option-icon"><i class="fab fa-windows"></i></div>
-                                    <div class="download-option-info">
-                                        <div class="download-option-name">Windows版</div>
-                                        <div class="download-option-desc">Minecraft 1.20.15 UWP应用包</div>
+                                    
+                                    <div class="download-links-container">
+                                        <div class="section-title">选择下载地址</div>
+                                        <div id="android-links" class="download-links ${!deviceInfo.mac && recommendedPlatform === 'android' ? 'active' : ''}">
+                                            ${downloadLinks.android.map((link, index) => 
+                                                `<a href="${link.url}" target="_blank" class="download-link">
+                                                    <span class="link-name">${link.name}</span>
+                                                    <span class="download-icon"><i class="fas fa-download"></i></span>
+                                                </a>`
+                                            ).join('')}
+                                        </div>
+                                        
+                                        <div id="ios-links" class="download-links ${deviceInfo.mac || recommendedPlatform === 'ios' ? 'active' : ''}">
+                                            ${downloadLinks.ios.map((link, index) => 
+                                                `<a href="${link.url}" target="_blank" class="download-link">
+                                                    <span class="link-name">${link.name}</span>
+                                                    <span class="download-icon"><i class="fas fa-download"></i></span>
+                                                </a>`
+                                            ).join('')}
+                                        </div>
+                                        
+                                        <div id="windows-links" class="download-links ${!deviceInfo.mac && recommendedPlatform === 'windows' ? 'active' : ''}">
+                                            ${downloadLinks.windows.map((link, index) => 
+                                                `<a href="${link.url}" target="_blank" class="download-link">
+                                                    <span class="link-name">${link.name}</span>
+                                                    <span class="download-icon"><i class="fas fa-download"></i></span>
+                                                </a>`
+                                            ).join('')}
+                                        </div>
                                     </div>
-                                    ${recommendedPlatform === 'windows' ? '<div class="recommended-badge">推荐</div>' : ''}
                                 </div>
                             </div>
                         </div>
@@ -1540,18 +1892,90 @@
             dialogContainer.innerHTML = dialogHTML;
             document.body.appendChild(dialogContainer);
             
+            // 防止背景滚动
+            document.body.classList.add('dialog-open');
+            
+            // 阻止对话框内容的滚动事件冒泡到body
+            const dialogBody = document.querySelector('.download-dialog-body');
+            const dialogContent = document.querySelector('.download-dialog-content');
+            
+            if (dialogBody && dialogContent) {
+                // 阻止触摸事件在对话框上冒泡
+                dialogContent.addEventListener('touchstart', function(e) {
+                    e.stopPropagation();
+                }, { passive: false });
+                
+                dialogContent.addEventListener('touchmove', function(e) {
+                    e.stopPropagation();
+                }, { passive: false });
+                
+                // 阻止整个对话框的触摸事件冒泡到背景
+                document.querySelector('.download-dialog').addEventListener('touchmove', function(e) {
+                    if (e.target === this) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+                
+                // 处理对话框内容区域的滚动边界，防止橡皮筋效果
+                dialogBody.addEventListener('touchstart', function(e) {
+                    const scrollTop = this.scrollTop;
+                    const scrollHeight = this.scrollHeight;
+                    const height = this.offsetHeight;
+                    const startY = e.touches[0].pageY;
+                    
+                    // 存储初始触摸位置，用于计算滚动方向
+                    this.dataset.touchStartY = startY;
+                    
+                    // 检查是否已经滚动到顶部或底部
+                    const isAtTop = scrollTop <= 0;
+                    const isAtBottom = scrollTop + height >= scrollHeight;
+                    
+                    // 存储滚动状态
+                    this.dataset.isAtTop = isAtTop;
+                    this.dataset.isAtBottom = isAtBottom;
+                }, { passive: false });
+                
+                dialogBody.addEventListener('touchmove', function(e) {
+                    const startY = parseInt(this.dataset.touchStartY);
+                    const currentY = e.touches[0].pageY;
+                    const isScrollingUp = currentY > startY;
+                    const isScrollingDown = currentY < startY;
+                    
+                    // 如果在顶部并且正在向下滚动，或者在底部并且正在向上滚动，则阻止默认行为
+                    if ((this.dataset.isAtTop === 'true' && isScrollingUp) || 
+                        (this.dataset.isAtBottom === 'true' && isScrollingDown)) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+            }
+            
             window.closeDownloadDialog = function() {
                 const dialog = document.getElementById('downloadDialogContainer');
                 if (dialog) {
                     document.body.removeChild(dialog);
+                    // 恢复背景滚动
+                    document.body.classList.remove('dialog-open');
                 }
             };
             
-            window.downloadMinecraft = function(platform) {
-                if (downloadLinks[platform]) {
-                    window.open(downloadLinks[platform], '_blank');
-                    closeDownloadDialog();
-                }
+            window.switchDownloadPlatform = function(platform) {
+                // 更新按钮状态
+                document.querySelectorAll('.platform-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`.platform-btn:nth-child(${platform === 'android' ? 1 : platform === 'ios' ? 2 : 3})`).classList.add('active');
+                
+                // 更新平台信息卡片显示
+                document.querySelectorAll('.platform-info-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                document.getElementById(`${platform}-info`).classList.add('active');
+                
+                // 更新下载链接显示
+                document.querySelectorAll('.download-links').forEach(links => {
+                    links.classList.remove('active');
+                });
+                document.getElementById(`${platform}-links`).classList.add('active');
             };
         }
         
