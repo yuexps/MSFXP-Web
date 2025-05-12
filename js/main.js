@@ -796,6 +796,6 @@ function finishLoadingAnimation() {
         setTimeout(() => {
             loadingScreen.classList.add('fade-out');
             document.body.classList.remove('loading');
-        }, 700); // 在动画70%处开始淡出加载屏幕
+        }, 700);
     }, 50);
 }

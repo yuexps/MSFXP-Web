@@ -1257,16 +1257,19 @@ body.dialog-open {
 /* 加载动画样式 */
 body.loading {
     overflow: hidden !important;
+    height: 100vh !important;
+    position: fixed !important;
+    width: 100vw !important;
 }
 
 #loading-screen {
-    position: fixed;
+    position: fixed !important;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient-bg);
+    width: 100vw;
+    height: 100vh;
     z-index: 9999;
+    background: var(--gradient-bg);
     display: flex;
     justify-content: center;
     align-items: center;
