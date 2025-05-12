@@ -1437,6 +1437,20 @@
         .server-option-note i {
             margin-right: 5px;
         }
+
+        /* 添加海外徽章样式 */
+        .overseas-badge {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            margin-left: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -1754,6 +1768,7 @@
                 <div class="motd-address">${data.host}</div>
                 <div class="motd-version">MCBE: ${data.version || "1.20.15"} | Protocol: ${data.agreement || "未知"}</div>
                 ${currentServer.note ? `<div class="server-note"><i class="fas fa-exclamation-triangle"></i> ${currentServer.note}</div>` : ''}
+                ${currentServer.ip === "s3.msfxp.top" ? `<div style="margin: 5px 0;"><span class="overseas-badge"><i class="fas fa-globe-asia"></i>海外</span></div>` : ''}
                 
                 <button class="motd-button" onclick="joinServer(${allServers.indexOf(currentServer)})">加入服务器</button>
                 
@@ -1877,11 +1892,12 @@
                 const statusBadge = server.status === 'offline' ? 
                     '<div class="server-option-status offline">离线</div>' : 
                     (server.delay < 999 ? '<div class="server-option-status online">在线</div>' : '');
+                const overseasBadge = idx === 2 ? '<span class="overseas-badge"><i class="fas fa-globe-asia"></i>海外</span>' : '';
                 
                 dialogHTML += `
                     <div class="server-option ${isRecommended ? 'recommended' : ''} ${server.status === 'offline' ? 'offline' : ''}" 
                          onclick="connectToMinecraft('${server.server_name}', '${server.ip}', '${server.port}')">
-                        <div class="server-option-name">${server.name} ${isRecommended ? '(推荐)' : ''}</div>
+                        <div class="server-option-name">${server.name} ${isRecommended ? '(推荐)' : ''} ${overseasBadge}</div>
                         <div class="server-option-address">${server.ip}:${server.port}</div>
                         ${statusBadge}
                         ${delayInfo}
