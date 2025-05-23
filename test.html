@@ -7,7 +7,6 @@
     <link rel="icon" href="./images/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <embed src="./audio/hello.mp3" autostart="true" loop="true" hidden="true"></embed>
 </head>
 <body>
     <div id="loading-screen">
@@ -121,5 +120,12 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var audio = document.getElementById("audio");
+        audio.play();
+    });
+    </script>
+    <embed src="./audio/hello.mp3" type="audio/mpeg" autostart="false" id="audio" />
 </body>
 </html>
