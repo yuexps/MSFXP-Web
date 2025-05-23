@@ -32,12 +32,7 @@
     
     <div class="cards-container">
         <div class="card intro-card">
-            <h2>嘿！这里是MSFXP</h2>
-            <audio id="Hello_Audio">
-            <source src="./audio/hello.mp3" type="audio/mpeg">
-            您的浏览器不支持音频元素。
-            </audio>
-            <button onclick="playAudio()">播放</button>
+            <h2>嘿！这里是MSFXP <button onclick="playAudio()">播放</button></h2>
             <p>
                 在这里，你将进入一个充满挑战与创意的生存世界！<br>
                 我们拥有丰富多样的玩法，包括：<br>
@@ -127,9 +122,15 @@
     <script src="js/main.js"></script>
     <script>
       function playAudio() {
-        var x = document.getElementById("myAudio");
+        var x = document.getElementById("Hello_Audio");
         x.play();
       }
     </script>
+    
+    <audio id="Hello_Audio">
+    <source src="./audio/hello.mp3" type="audio/mpeg">
+    您的浏览器不支持音频元素。
+    </audio>
+
 </body>
 </html>
