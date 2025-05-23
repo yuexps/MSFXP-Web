@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <title>MSFXP 服务器</title>
+    <link rel="icon" href="./images/Logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loading-container">
+            <div class="loading-text">
+                <span class="loading-letter">M</span>
+                <span class="loading-letter">S</span>
+                <span class="loading-letter">F</span>
+                <span class="loading-letter">X</span>
+                <span class="loading-letter">P</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="header">
+        <h1>MSFXP 服务器</h1>
+        <div class="header-right">
+            <button class="user-center-btn" onclick="connectToServer()">
+                <i class="fas fa-user-circle"></i>个人中心
+            </button>
+        </div>
+    </div>
+    
+    <div class="cards-container">
+        <div class="card intro-card">
+            <h2>嘿！这里是MSFXP</h2>
+            <p>
+                在这里，你将进入一个充满挑战与创意的生存世界！<br>
+                我们拥有丰富多样的玩法，包括：<br>
+                 • 怪物强化，战斗更刺激！<br>
+                 • 装备强化，打造独一无二的神装！<br>
+                 • 枪械系统，远程火力碾压敌人！<br>
+                 • 妖精女仆，可爱又实用的贴身帮手！<br>
+                 • 更有"生电大佬"（划掉）带你玩转科技！<br>
+                无论你是建筑党、生电党、还是战斗党，这里都能找到属于你的乐趣！<br>
+                快来和一群志同道合的小伙伴一起开启全新的冒险吧！
+            </p>
+            
+            <div class="server-gallery">
+                <h3>服务器风光</h3>
+                <div class="gallery-container">
+                    <div class="gallery-slides" id="gallerySlides">
+                        <div class="gallery-item" data-index="0">
+                            <img src="./images/server/1.png" alt="服务器场景1">
+                        </div>
+                        <div class="gallery-item" data-index="1">
+                            <img src="./images/server/2.png" alt="服务器场景2">
+                        </div>
+                        <div class="gallery-item" data-index="2">
+                            <img src="./images/server/3.png" alt="服务器场景3">
+                        </div>
+                        <div class="gallery-item" data-index="3">
+                            <img src="./images/server/4.png" alt="服务器场景4">
+                        </div>
+                        <div class="gallery-item" data-index="4">
+                            <img src="./images/server/5.png" alt="服务器场景5">
+                        </div>
+                        <div class="gallery-item" data-index="5">
+                            <img src="./images/server/6.png" alt="服务器场景6">
+                        </div>
+                    </div>
+                    <div class="gallery-controls">
+                        <button class="gallery-nav gallery-prev" onclick="slideGallery(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="gallery-nav gallery-next" onclick="slideGallery(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="gallery-dots" id="galleryDots">
+                        <!-- 轮播图指示点将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="card status-card">
+            <h2>服务器状态</h2>
+            <div class="server-status">
+                <div id="motdContainer" class="motd-container">
+                    <div class="motd-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <div>正在连接服务器...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <a href="javascript:void(0);" onclick="showDownloadOptions()" class="quick-action-button download-btn">
+                    <i class="fas fa-download"></i>Minecraft下载
+                </a>
+                <a href="https://qq.msfxp.top" class="quick-action-button qq-btn">
+                    <i class="fas fa-users"></i>QQ交流群
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div style="margin-top: 5px; font-size: 0.8rem;">Copyright © 2019-2025 <a href="https://github.com/yuexps/MSFXP-Web" target="_blank">MSFXP</a> | <a href="https://beian.miit.gov.cn/" target="_blank">渝ICP备2024024496号-1</a></div>
+    </div>
+
+    <!-- 灯箱效果 -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" class="lightbox-content">
+        <div class="lightbox-controls">
+            <button onclick="changeImage(-1)" class="lightbox-nav lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="changeImage(1)" class="lightbox-nav lightbox-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
