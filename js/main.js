@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const servers = [
         {
-            name: "北方节点",
+            name: "樱花Frp",
             ip: "s1.msfxp.top",
-            port: "19125",
+            port: "23236",
             delay: 999,
             status: "unknown"
         },
@@ -229,10 +229,10 @@ function joinServer(serverIndex = 0) {
     const mainServers = document.querySelectorAll('[data-server-info]');
     const servers = [
         {
-            name: "北方节点",
+            name: "樱花Frp",
             server_name: "§b§lMSFXP-北方",
             ip: "s1.msfxp.top",
-            port: "19125",
+            port: "23236",
             delay: 999
         },
         {
