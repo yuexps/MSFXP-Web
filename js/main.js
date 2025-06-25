@@ -390,7 +390,7 @@ function displayOfflineStatus(server) {
         <div class="motd-address">${serverAddress}</div>
         <div class="motd-error">服务器当前无法连接，请稍后再试或切换其他服务器ip</div>
         <div class="server-selectors">
-            <button class="server-selector" onclick="switchServer(0)">北方节点</button>
+            <button class="server-selector" onclick="switchServer(0)">樱花Frp</button>
             <button class="server-selector" onclick="switchServer(1)">南方节点</button>
             <button class="server-selector" onclick="switchServer(2)">日本节点</button>
         </div>
